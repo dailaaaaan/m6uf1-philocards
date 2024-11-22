@@ -1,6 +1,6 @@
 window.onload = () => {
     // Crear tarjetas
-    // crearTarjetas(filosofos)
+    crearTarjetas(filosofos)
 
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
@@ -8,10 +8,13 @@ window.onload = () => {
 }
 
 function crearTarjetas(filosofos) {
+    let contenedor = document.querySelector('cards-container');
+
     filosofos.forEach((filosofo) => {
         // Creamos tarjeta vacía
         let tarjeta = document.createElement('div');
         tarjeta.classList.add('card');
+
         // Creamos imagen
         let imagen = document.createElement('img');
         imagen.src = filosofo.imagen;
@@ -43,7 +46,17 @@ function crearTarjetas(filosofos) {
         // Añadimos caja de habilidades
         let habilidades = document.createElement('div');
         habilidades.classList.add('skills');
-        info.append(habilidades);
+        filosofo.habilidades.forEach((habilidad) => {
+            const skill = document.createElement('div');
+            skill.classList.add('skill');
+            skill.textContent = habilidad.nombre;
+            habilidades.appendChild(skill);
+        });
+
+        info.appendChild(habilidades);
+        tarjeta.appendChild(info);
+        contenedor.appendChild(tarjeta);
+        
         // Añadimos una a una las habilidades
         for (let infoHabilidad of filosofo.habilidades) {
             // Añadimos una caja de habilidad
